@@ -1,0 +1,308 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>小姚 · 接入本地 macOS</title>
+  <meta name="description" content="跨界开发者。非科班自学写代码，折腾 AI Agent、量化分析与自托管技术栈。这是一台常年不关的 Mac 的接入端口。" />
+  <meta name="color-scheme" content="dark" />
+  <meta name="theme-color" content="#07070a" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js" defer></script>
+</head>
+<body>
+  <!-- grain overlay -->
+  <div class="grain" aria-hidden="true"></div>
+
+  <!-- custom cursor -->
+  <div class="cursor-dot" aria-hidden="true"></div>
+  <div class="cursor-ring" aria-hidden="true"></div>
+
+  <!-- scroll progress -->
+  <div class="progress" aria-hidden="true"><span class="progress__bar" id="progressBar"></span></div>
+
+  <!-- boot / access sequence -->
+  <div class="boot" id="boot" aria-hidden="true">
+    <div class="boot__inner">
+      <div class="boot__line"><span class="boot__prompt">~</span> ssh 小姚@local</div>
+      <div class="boot__line" data-d="1">&gt; establishing secure channel<span class="boot__dots">·······</span> ok</div>
+      <div class="boot__line" data-d="2">&gt; mounting /Users/小姚/macos<span class="boot__dots">·······</span> ok</div>
+      <div class="boot__line" data-d="3">&gt; services: mail · wiki · quant<span class="boot__dots">·······</span> online</div>
+      <div class="boot__line boot__welcome" data-d="4">&gt; welcome back. 接入成功。</div>
+    </div>
+  </div>
+
+  <!-- nav -->
+  <header class="nav" id="nav">
+    <a class="nav__brand" href="#home" data-magnetic>
+      <span class="nav__brand-name">小姚</span>
+      <span class="nav__brand-path">~/macos</span>
+    </a>
+    <nav class="nav__links" aria-label="主导航">
+      <a href="#about" data-magnetic><i data-lucide="user"></i><span>关于</span></a>
+      <a href="#skills" data-magnetic><i data-lucide="cpu"></i><span>能耐</span></a>
+      <a href="#projects" data-magnetic><i data-lucide="folder-git-2"></i><span>在跑的</span></a>
+      <a href="#contact" data-magnetic><i data-lucide="send"></i><span>联系</span></a>
+    </nav>
+    <div class="nav__status" title="本地 macOS 在线">
+      <span class="nav__dot"></span><span class="nav__status-text">本地在线</span>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <section class="hero" id="home">
+      <div class="hero__grid">
+        <div class="hero__main">
+          <p class="hero__eyebrow" data-reveal>
+            <i data-lucide="terminal"></i> ACCESSING 小姚&rsquo;s LOCAL MACOS
+          </p>
+          <h1 class="hero__name" aria-label="小姚">
+            <span class="hero__char">小</span><span class="hero__char">姚</span>
+          </h1>
+          <p class="hero__sub" data-kinetic data-reveal>鲫鱼炖豆腐 — 跨界开发者 / 自学上路</p>
+          <p class="hero__lede" data-reveal>
+            不科班出身，代码是文档、开源项目和无数次报错喂出来的。
+            比起把事情说漂亮，我更在意它能不能真的跑起来。
+          </p>
+          <div class="hero__status" data-reveal>
+            <span class="status-dot"></span>
+            <span>本地 macOS 在线 · 1 台常年不关的服务器</span>
+          </div>
+          <div class="hero__cta" data-reveal>
+            <a href="#projects" class="btn btn--primary" data-magnetic>
+              <i data-lucide="arrow-down-right"></i> 看看在跑什么
+            </a>
+            <a href="#contact" class="btn btn--ghost" data-magnetic>
+              <i data-lucide="mail"></i> 开个频道
+            </a>
+          </div>
+        </div>
+
+        <!-- system status panel -->
+        <aside class="panel" aria-label="系统状态">
+          <div class="panel__bar">
+            <span class="panel__title"><i data-lucide="activity"></i> system.stat</span>
+            <span class="panel__live"><span class="panel__live-dot"></span>LIVE</span>
+          </div>
+          <ul class="panel__list">
+            <li><i data-lucide="server"></i><span>host</span><b>macos.local</b></li>
+            <li><i data-lucide="clock"></i><span>uptime</span><b id="uptime">—</b></li>
+            <li><i data-lucide="cpu"></i><span>load</span><b>0.42 / 0.51 / 0.39</b></li>
+            <li><i data-lucide="hard-drive"></i><span>disk</span><b>68% used</b></li>
+            <li><i data-lucide="box"></i><span>services</span><b>3 online</b></li>
+            <li><i data-lucide="wifi"></i><span>net</span><b>self-hosted</b></li>
+          </ul>
+          <div class="panel__foot">
+            <span class="panel__scan"></span>
+            <span class="panel__hint">this machine runs my email, wiki &amp; quant.</span>
+          </div>
+        </aside>
+      </div>
+      <div class="hero__scrollcue" aria-hidden="true">
+        <i data-lucide="mouse"></i><span>scroll</span>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section class="about" id="about">
+      <p class="section-label" data-reveal><span class="section-label__no">01</span> 关于这台机器背后的人</p>
+      <blockquote class="about__quote" data-kinetic>
+        我不是科班出身，<br />代码是文档、开源和报错，一点点喂出来的。
+      </blockquote>
+      <div class="about__body">
+        <p data-reveal>
+          如果你面试我的是一个写代码的 boss，希望你能从这里看出一件事：
+          我确实能干活，只是路子野了点。我没读过计算机本科，
+          所以很多「常识」是我自己踩坑补回来的——但这也意味着，
+          遇到问题我不会先翻课本，我会先去拆、去试、去把一个东西跑通。
+        </p>
+        <p data-reveal>
+          三年自学，二十多份被我改过的简历，一台舍不得关的 Mac。
+          我不是最聪明的那个，但大概是那个把「跑起来」看得最重的人。
+          论文里的计量模型，我写成能反复跑的脚本；
+          想用的服务，我尽量部署到自己这台机器上，让它听我的。
+        </p>
+        <p data-reveal>
+          目前最上头的三件事：<b>AI Agent</b>、<b>量化分析</b>、<b>自托管</b>。
+          它们看起来不挨着，但底层是同一股劲——把混乱的现实，
+          变成能自动运转的一行行命令。
+        </p>
+      </div>
+      <div class="stats">
+        <div class="stat" data-reveal>
+          <i data-lucide="calendar-clock"></i>
+          <span class="stat__num" data-count="3">0</span>
+          <span class="stat__label">年 · 自学写代码</span>
+        </div>
+        <div class="stat" data-reveal>
+          <i data-lucide="file-text"></i>
+          <span class="stat__num" data-count="20" data-suffix="+">0</span>
+          <span class="stat__label">份 · 打磨过的简历</span>
+        </div>
+        <div class="stat" data-reveal>
+          <i data-lucide="power"></i>
+          <span class="stat__num" data-count="1">0</span>
+          <span class="stat__label">台 · 常年不关的服务器</span>
+        </div>
+        <div class="stat" data-reveal>
+          <i data-lucide="star"></i>
+          <span class="stat__num" data-count="3">0</span>
+          <span class="stat__label">颗 · macOS Tag Manager star</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section class="skills" id="skills">
+      <p class="section-label" data-reveal><span class="section-label__no">02</span> 我能摆弄的东西</p>
+      <div class="bento">
+        <article class="bento__card" data-reveal data-magnetic>
+          <i data-lucide="code-2"></i>
+          <h3>语言</h3>
+          <p>Python 写得多，Shell 当瑞士军刀，TypeScript 正在补。能读能改能跑，不挑语言，只挑顺手。</p>
+        </article>
+        <article class="bento__card" data-reveal data-magnetic>
+          <i data-lucide="layout-template"></i>
+          <h3>前端</h3>
+          <p>HTML / CSS / 原生 JS 是我的舒适区。不追框架，先把一件事做干净，再谈花活。</p>
+        </article>
+        <article class="bento__card bento__card--wide" data-reveal data-magnetic>
+          <i data-lucide="server-cog"></i>
+          <h3>工程运维</h3>
+          <p>Docker、自托管、一台真实在跑的服务器。域名邮箱、Wiki、量化脚本都在这台 Mac 上活着——出问题我比监控先知道。</p>
+        </article>
+        <article class="bento__card" data-reveal data-magnetic>
+          <i data-lucide="plug-zap"></i>
+          <h3>后端接口</h3>
+          <p>FastAPI 糊过小服务，把模型和脚本包成能调用的接口。够用、能测、不臃肿。</p>
+        </article>
+        <article class="bento__card" data-reveal data-magnetic>
+          <i data-lucide="bar-chart-3"></i>
+          <h3>数据量化</h3>
+          <p>Pandas 洗数据，自己写回测，图表说话。不是要战胜市场，是想看清自己是不是在瞎操作。</p>
+        </article>
+        <article class="bento__card" data-reveal data-magnetic>
+          <i data-lucide="terminal-square"></i>
+          <h3>工具链</h3>
+          <p>Git、终端、自动化脚本。把重复的事交给机器，把脑子留给真正要想的问题。</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- PROJECTS (horizontal scroll) -->
+    <section class="projects" id="projects">
+      <div class="projects__head">
+        <p class="section-label" data-reveal><span class="section-label__no">03</span> 我机器上跑着的东西</p>
+        <p class="projects__hint" data-reveal><i data-lucide="move-horizontal"></i> 横向滚动，像翻一台机器的进程列表</p>
+      </div>
+      <div class="projects__sticky">
+        <div class="projects__track" id="track">
+          <article class="project-card" data-magnetic>
+            <div class="project-card__top">
+              <i data-lucide="bot"></i>
+              <span class="project-card__tag">腾讯 · WorkBuddy</span>
+            </div>
+            <h3>WorkBuddy</h3>
+            <p>在腾讯参与的产品。每天和 AI Agent 打交道，也顺手把它变成我折腾其他东西的底座。产品和我自己的玩具，边界越来越模糊。</p>
+            <span class="project-card__meta"><i data-lucide="badge-check"></i> 在职参与</span>
+          </article>
+
+          <article class="project-card" data-magnetic>
+            <div class="project-card__top">
+              <i data-lucide="tag"></i>
+              <span class="project-card__tag">Shell · 3 stars</span>
+            </div>
+            <h3>macOS Tag Manager</h3>
+            <p>给自己写的 macOS 标签管理器，Shell 糊的。3 颗 star 不多，但每一颗都是真用过的人。它治好了我文件乱放的病。</p>
+            <span class="project-card__meta"><i data-lucide="github"></i> 683280yj</span>
+          </article>
+
+          <article class="project-card" data-magnetic>
+            <div class="project-card__top">
+              <i data-lucide="mail"></i>
+              <span class="project-card__tag">self-hosted</span>
+            </div>
+            <h3>域名邮箱</h3>
+            <p>在自家服务器上跑了一套域名邮箱，从此 @idkyjun.me 的邮件自己说了算。不用再看大厂脸色，也不用担心哪天账号被封。</p>
+            <span class="project-card__meta"><i data-lucide="server"></i> on this mac</span>
+          </article>
+
+          <article class="project-card" data-magnetic>
+            <div class="project-card__top">
+              <i data-lucide="book-open-check"></i>
+              <span class="project-card__tag">合伙人</span>
+            </div>
+            <h3>ACI Wiki</h3>
+            <p>作为一个知识库的共建合伙人，和一群人把零散经验攒成能检索的东西。好记性不如结构化的烂笔头。</p>
+            <span class="project-card__meta"><i data-lucide="users"></i> co-builder</span>
+          </article>
+
+          <article class="project-card" data-magnetic>
+            <div class="project-card__top">
+              <i data-lucide="messages-square"></i>
+              <span class="project-card__tag">成员</span>
+            </div>
+            <h3>Linux.do</h3>
+            <p>混迹 Linux.do。偶尔答题，经常潜水，长期白嫖各位大佬的经验帖。这台机器能活到现在，一半功劳是社区给的。</p>
+            <span class="project-card__meta"><i data-lucide="message-circle"></i> lurker &amp; learner</span>
+          </article>
+
+          <article class="project-card" data-magnetic>
+            <div class="project-card__top">
+              <i data-lucide="line-chart"></i>
+              <span class="project-card__tag">量化</span>
+            </div>
+            <h3>A 股量化分析</h3>
+            <p>用代码代替直觉看盘。不是要战胜市场，是想看清自己是不是在瞎操作。数据不会骗人，但会沉默，得会问它。</p>
+            <span class="project-card__meta"><i data-lucide="trending-up"></i> pandas · backtest</span>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="contact" id="contact">
+      <p class="section-label" data-reveal><span class="section-label__no">04</span> 开个频道</p>
+      <div class="contact__panel" data-reveal>
+        <div class="contact__bar">
+          <i data-lucide="terminal"></i> open-channel.sh
+        </div>
+        <h2 class="contact__title" data-kinetic>想聊点什么，门一直开着。</h2>
+        <p class="contact__lede">
+          合作、请教、或者单纯想看看我这台机器还能跑出什么花，
+          都欢迎。最快的方式是邮件——我会自己收到，不经由任何平台。
+        </p>
+        <button class="contact__link contact__link--copy" id="copyEmail" data-email="yggcmm@outlook.com" data-magnetic>
+          <i data-lucide="copy"></i>
+          <em>yggcmm@outlook.com</em>
+          <span class="contact__copied" id="copiedTip">已复制</span>
+        </button>
+        <div class="contact__socials">
+          <a href="https://github.com/683280yj" target="_blank" rel="noopener" class="social-chip" data-magnetic>
+            <i data-lucide="github"></i><span>GitHub</span>
+          </a>
+          <a href="#" class="social-chip" data-magnetic>
+            <i data-lucide="globe"></i><span>idkyjun.me</span>
+          </a>
+          <a href="mailto:yggcmm@outlook.com" class="social-chip" data-magnetic>
+            <i data-lucide="at-sign"></i><span>邮件</span>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <span>© 2026 小姚 · 自建于一台常年不关的 Mac</span>
+    <span class="footer__note">本站无 Cookie，无追踪，纯手写。 <i data-lucide="heart"></i> 少即是多。</span>
+  </footer>
+
+  <script src="assets/js/main.js" defer></script>
+</body>
+</html>
